@@ -129,7 +129,7 @@ while True:
             percent = int(round(waterLevel/10.24))
             log("ADC Output: {0:4d} Percentage: {1:3}%".format (waterLevel,percent))
             payload = '{{"sensorName": "{}", "type": "{}", "value": {}, "location": "{}", "version": 1 }}'
-            payload = payload.format(sensor['name'],sensor['type'],percent,sensor['location'])
+            payload = payload.format(sensor['name'],sensor['type'],waterLevel,sensor['location'])
             for client in clients:
 
                 client.publish("habarama", payload=payload, qos=0, retain=False)
