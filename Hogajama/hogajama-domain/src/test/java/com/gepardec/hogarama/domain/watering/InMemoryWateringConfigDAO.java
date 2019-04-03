@@ -1,9 +1,8 @@
 package com.gepardec.hogarama.domain.watering;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.gepardec.hogarama.domain.watering.WateringConfigDAO;
-import com.gepardec.hogarama.domain.watering.WateringConfigData;
+import java.util.List;
 
 public class InMemoryWateringConfigDAO implements WateringConfigDAO {
 
@@ -15,13 +14,28 @@ public class InMemoryWateringConfigDAO implements WateringConfigDAO {
 	}
 
 	@Override
+	public void delete(WateringConfigData wconf) {
+		store.remove(wconf.getSensorName());
+	}
+
+	@Override
+	public void update(WateringConfigData wconf) {
+		store.replace(wconf.getSensorName(), wconf);
+	}
+
+	@Override
+	public List<WateringConfigData> getAll() {
+		return new ArrayList<>(store.values());
+	}
+
+	@Override
 	public WateringConfigData getBySensorName(String id) {
 		return store.get(id);
 	}
 
-	public void setUpForTest() {
+	void setUpForTest() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -3,9 +3,10 @@ package com.gepardec.hogarama.domain.watering;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+// TODO PH add bean validation
 @Entity("wateringConfig")
 public class WateringConfigData {
-	
+
 	@Id
 	private String sensorName;
 	private String actorName;
@@ -14,9 +15,9 @@ public class WateringConfigData {
 	private int waterDuration;
 
 	public WateringConfigData() {
-		
+
 	}
-	
+
 	public WateringConfigData(String id, String actorName, int measureInterval, double lowWater, int waterDuration) {
 		super();
 		this.sensorName = id;
@@ -40,8 +41,8 @@ public class WateringConfigData {
 
 	public double getLowWater() {
 		return lowWater;
-	}	
-	
+	}
+
 	public int getWaterDuration() {
 		return waterDuration;
 	}	
