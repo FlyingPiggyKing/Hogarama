@@ -19,8 +19,8 @@ public class InMemoryWateringConfigDAO implements WateringConfigDAO {
 	}
 
 	@Override
-	public void update(WateringConfigData wconf) {
-		store.replace(wconf.getSensorName(), wconf);
+	public void update(String originSensorName, WateringConfigData wconf) {
+		store.replace(originSensorName, wconf);
 	}
 
 	@Override

@@ -8,7 +8,7 @@ public interface WateringConfigDAO {
 
     void delete(WateringConfigData wconf);
 
-    void update(WateringConfigData wconf);
+    void update(String originSensorName, WateringConfigData wconf);
 
     List<WateringConfigData> getAll();
 

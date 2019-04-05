@@ -15,10 +15,16 @@ public interface WateringConfigApi {
     @Produces(MediaType.APPLICATION_JSON)
     Response getAllWateringConfigs();
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{sensorName}")
+    Response getWateringConfig(@PathParam("sensorName") String sensorName);
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    Response updateWateringConfig(@Valid WateringConfigData wconf);
+    @Path("/{originSensorName}")
+    Response updateWateringConfig(@PathParam("originSensorName") String originSensorName, @Valid WateringConfigData wconf);
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -28,6 +34,7 @@ public interface WateringConfigApi {
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    Response deleteWateringConfig(@Valid WateringConfigData wconf);
+    @Path("/{sensorName}")
+    Response deleteWateringConfig(@PathParam("sensorName") String sensorName);
 
 }

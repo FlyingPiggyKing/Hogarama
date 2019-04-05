@@ -4,6 +4,7 @@ import com.gepardec.hogarama.domain.watering.WateringConfigDAO;
 import com.gepardec.hogarama.domain.watering.WateringConfigData;
 import com.gepardec.hogarama.service.MongoDbProducer;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.mapping.Mapper;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -27,7 +28,13 @@ public class MongoWateringConfigDAO implements WateringConfigDAO {
     }
 
     @Override
-    public void update(WateringConfigData wconf) {
+    public void update(String originSensorName, WateringConfigData wconf) {
+        // as we use the sensorName as identifier we need to check if the sensorName is updated or not
+        // if the sensorName is assigend to a new value, we need to delete the origin entry first,
+        // because _id is an immutable field
+        if (!originSensorName.equals(wconf.getSensorName())) {
+            delete(getBySensorName(originSensorName));
+        }
         save(wconf);
     }
 
@@ -38,7 +45,7 @@ public class MongoWateringConfigDAO implements WateringConfigDAO {
 
     @Override
     public WateringConfigData getBySensorName(String sensorName) {
-        List<WateringConfigData> configs = db.createQuery(WateringConfigData.class).field("sensorName").equal(sensorName).asList();
+        List<WateringConfigData> configs = db.createQuery(WateringConfigData.class).field(Mapper.ID_KEY).equal(sensorName).asList();
         if (configs.isEmpty()) {
             return null;
         }
