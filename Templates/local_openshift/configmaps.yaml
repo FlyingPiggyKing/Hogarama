@@ -1278,7 +1278,7 @@ objects:
 
       # list of datasources that should be deleted from the database
       deleteDatasources:
-        - name: Blubb1
+        - name: Prometheus
           orgId: 1
 
       # list of datasources to insert/update depending
